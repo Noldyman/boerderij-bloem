@@ -15,6 +15,8 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { Menu } from "@mui/icons-material";
+import { useTheme } from "@emotion/react";
+import styles from "./layout.module.scss";
 
 const navItems = [
   { label: "Home", ref: "/" },
@@ -22,6 +24,7 @@ const navItems = [
 ];
 
 export default function Navbar() {
+  const theme = useTheme();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleDrawerToggle = () => {
@@ -30,7 +33,7 @@ export default function Navbar() {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
+      <Typography variant="h5" sx={{ my: 2 }}>
         Boerderij bloem
       </Typography>
       <Divider />
@@ -50,7 +53,7 @@ export default function Navbar() {
 
   return (
     <>
-      <AppBar component="nav" position="sticky">
+      <AppBar className={styles.navbar} component="nav" position="sticky" variant="outlined">
         <Toolbar>
           <IconButton
             color="inherit"
@@ -62,7 +65,7 @@ export default function Navbar() {
             <Menu />
           </IconButton>
           <Typography
-            variant="h6"
+            variant="h5"
             component="div"
             sx={{
               flexGrow: 1,
@@ -74,7 +77,7 @@ export default function Navbar() {
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
               <Link key={item.ref} href={item.ref}>
-                <Button key={item.label} sx={{ color: "#fff" }}>
+                <Button key={item.label} sx={{ color: "#25362a" }}>
                   {item.label}
                 </Button>
               </Link>
