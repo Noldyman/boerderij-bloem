@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Link from "next/link";
 import {
   AppBar,
   Box,
@@ -13,9 +14,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import Link from "next/link";
 import { Menu } from "@mui/icons-material";
-import { useTheme } from "@emotion/react";
 import styles from "./layout.module.scss";
 
 const navItems = [
@@ -24,7 +23,6 @@ const navItems = [
 ];
 
 export default function Navbar() {
-  const theme = useTheme();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleDrawerToggle = () => {
@@ -32,7 +30,7 @@ export default function Navbar() {
   };
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
+    <Box onClick={handleDrawerToggle}>
       <Typography variant="h5" sx={{ my: 2 }}>
         Boerderij bloem
       </Typography>
@@ -76,7 +74,7 @@ export default function Navbar() {
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Link key={item.ref} href={item.ref}>
+              <Link key={item.ref} href={item.ref} legacyBehavior>
                 <Button key={item.label} sx={{ color: "#25362a" }}>
                   {item.label}
                 </Button>
@@ -99,6 +97,8 @@ export default function Navbar() {
               boxSizing: "border-box",
               width: "95%",
               maxWidth: "250px",
+              textAlign: "center",
+              backgroundColor: "#fff4eb",
             },
           }}
         >

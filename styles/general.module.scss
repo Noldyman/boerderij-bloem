@@ -2,3 +2,35 @@
   margin-top: 30px;
   text-align: center;
 }
+
+.introTextContainer {
+  width: fit-content;
+  margin: auto;
+
+  margin-top: 50px;
+  padding: 0px;
+}
+
+.introTextLarge {
+  display: flex;
+  max-width: 1200px;
+  margin-right: 10px;
+}
+
+.introTextSmall {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.card {
+  margin: 0px 10px;
+  max-width: 900px;
+  padding: 20px;
+  border: none;
+  box-shadow: none;
+  border-radius: 2px;
+}
+
+.backgroundDiv {
+  z-index: -1;
+}
