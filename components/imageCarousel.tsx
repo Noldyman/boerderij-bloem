@@ -53,13 +53,15 @@ export default function ImageCarousel({ imgUrls, height, width, margins }: Props
         interval={10000}
       >
         {imgUrls.map((imgUrl) => (
-          <img
-            height={calcHeight(height)}
-            className="image"
-            key={imgUrl}
-            src={imgUrl}
-            alt="Geen afbeelding"
-          />
+          <picture key={imgUrl}>
+            <img
+              height={calcHeight(height)}
+              width={calcWidth(width)}
+              className="image"
+              src={imgUrl}
+              alt="Geen afbeelding"
+            />
+          </picture>
         ))}
       </Carousel>
     </div>

@@ -39,36 +39,3 @@
   border-radius: 2px;
   height: fit-content;
 }
-
-.intro-text-container {
-  width: fit-content;
-  margin: auto;
-  margin-top: 50px;
-  padding: 0px;
-}
-
-.intro-text-large {
-  display: flex;
-  max-width: 1200px;
-  margin-right: 10px;
-}
-
-.intro-text-small {
-  display: flex;
-  flex-direction: column-reverse;
-}
-
-.content-cover-image {
-  z-index: -1;
-  border-radius: 2px;
-  margin-left: -40px;
-  margin-top: -30px;
-  width: fit-content;
-}
-
-.content-cover-image-small {
-  z-index: -1;
-  border-radius: 2px;
-  margin-bottom: -30px;
-  width: fit-content;
-}

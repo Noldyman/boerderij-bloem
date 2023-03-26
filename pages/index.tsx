@@ -1,53 +1,24 @@
+import Head from "next/head";
 import { GetStaticProps } from "next";
+import { db, storage } from "@/utils/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
-import { db, storage } from "@/utils/firebase";
 import { createHtmlFromMarkdown } from "@/utils/parseMarkdown";
-import useWindowDimensions from "@/utils/useWindowDimensions";
-import Head from "next/head";
-import { Card, Grow } from "@mui/material";
-import ImageCarousel from "@/components/imageCarousel";
+import IntroText from "@/components/introText";
 
 interface Props {
-  introText: any;
+  introText: string;
   coverImgUrls: string[];
 }
 
 export default function Home({ introText, coverImgUrls }: Props) {
-  const dimensions = useWindowDimensions();
-
   return (
     <>
       <Head>
         <title>Boerderij bloem | home</title>
         <link rel="icon" href="/flower.png" />
       </Head>
-      <div className="intro-text-container">
-        <div
-          className={
-            dimensions && dimensions.width <= 1050 ? "intro-text-small" : "intro-text-large"
-          }
-        >
-          <Grow in timeout={dimensions && dimensions.width <= 1050 ? 500 : 0}>
-            <Card className="card">
-              <h1>Welkom</h1>
-              <div dangerouslySetInnerHTML={{ __html: introText }} />
-            </Card>
-          </Grow>
-          <Grow in timeout={dimensions && dimensions.width > 1050 ? 500 : 0}>
-            <div className="background-div">
-              <ImageCarousel
-                imgUrls={coverImgUrls}
-                height={450}
-                width={600}
-                margins={
-                  dimensions && dimensions.width <= 1050 ? { bottom: -20 } : { top: -30, left: -40 }
-                }
-              />
-            </div>
-          </Grow>
-        </div>
-      </div>
+      <IntroText title="Welkom" htmlContent={introText} imgUrls={coverImgUrls} />
     </>
   );
 }
@@ -74,7 +45,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       introText: htmlContnent,
-      coverImgUrls: coverImgUrls,
+      coverImgUrls,
     },
   };
 };

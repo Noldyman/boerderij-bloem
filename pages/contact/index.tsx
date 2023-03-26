@@ -8,6 +8,7 @@ import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { Card, Grow, Typography } from "@mui/material";
 import { AlternateEmail, Phone, LocationOn } from "@mui/icons-material";
 import { createHtmlFromMarkdown } from "@/utils/parseMarkdown";
+import IntroText from "@/components/introText";
 
 interface ContactInfo {
   address: string;
@@ -20,26 +21,20 @@ interface ContactInfo {
 
 interface Props {
   introText: any;
-  coverImgUrl: string;
+  coverImgUrls: string[];
   contactInfo: ContactInfo;
 }
 
-export default function Contact({ introText, coverImgUrl, contactInfo }: Props) {
+export default function Contact({ introText, coverImgUrls, contactInfo }: Props) {
   const dimensions = useWindowDimensions();
   const [smallScreen, setSmallScreen] = useState(false);
 
   useEffect(() => {
     if (!dimensions) return;
-    if (dimensions.width <= 1050) {
+    if (dimensions.width <= 800) {
       setSmallScreen(true);
     } else setSmallScreen(false);
   }, [dimensions]);
-
-  const calcHeight = (height: number) => {
-    const maxHeight = dimensions ? dimensions.width * 0.75 : undefined;
-    if (maxHeight && maxHeight < height) return maxHeight;
-    return height;
-  };
 
   return (
     <>
@@ -47,32 +42,14 @@ export default function Contact({ introText, coverImgUrl, contactInfo }: Props) 
         <title>Boerderij bloem | contact</title>
         <link rel="icon" href="/contact.png" />
       </Head>
-      <div className="intro-text-container">
-        <div className={smallScreen ? "intro-text-small" : "intro-text-large"}>
-          <Grow in>
-            <Card className="card">
-              <h1>Contact</h1>
-              <div dangerouslySetInnerHTML={{ __html: introText }} />
-            </Card>
-          </Grow>
-          <Grow in timeout={250}>
-            <div className={smallScreen ? "content-coverImageSmall" : "content-cover-image"}>
-              <img src={coverImgUrl} alt="Geen afbeelding" height={calcHeight(400)} />
-            </div>
-          </Grow>
-        </div>
-      </div>
+      <IntroText title="Contact" htmlContent={introText} imgUrls={coverImgUrls} />
       <Grow in timeout={500}>
         <div className="center-div">
           <Card className="contact-info-card">
             <Typography align="center" variant="h6">
               {contactInfo.contacts}
             </Typography>
-            <div
-              className={
-                dimensions && dimensions.width <= 800 ? "contact-info-small" : "contact-info"
-              }
-            >
+            <div className={smallScreen ? "contact-info-small" : "contact-info"}>
               <div className="contact-info-item">
                 <LocationOn />
                 <p>{contactInfo.address}</p>
@@ -99,8 +76,12 @@ export default function Contact({ introText, coverImgUrl, contactInfo }: Props) 
 export const getStaticProps: GetStaticProps = async () => {
   const listRef = ref(storage, "images/coverphotos/contact");
   const res = await listAll(listRef);
-  const imgRef = ref(storage, res.items[0].fullPath);
-  const coverImgUrl = await getDownloadURL(imgRef);
+  const coverImgUrls = await Promise.all(
+    res.items.map(async (item) => {
+      const imgRef = ref(storage, item.fullPath);
+      return await getDownloadURL(imgRef);
+    })
+  );
 
   const introSnapshot = await getDocs(
     query(
@@ -132,8 +113,8 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       introText: htmlContnent,
-      coverImgUrl: coverImgUrl,
-      contactInfo: contactInfo,
+      coverImgUrls,
+      contactInfo,
     },
   };
 };
