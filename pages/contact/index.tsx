@@ -8,7 +8,6 @@ import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { Card, Grow, Typography } from "@mui/material";
 import { AlternateEmail, Phone, LocationOn } from "@mui/icons-material";
 import { createHtmlFromMarkdown } from "@/utils/parseMarkdown";
-import styles from "../../styles/general.module.scss";
 
 interface ContactInfo {
   address: string;
@@ -48,44 +47,44 @@ export default function Contact({ introText, coverImgUrl, contactInfo }: Props) 
         <title>Boerderij bloem | contact</title>
         <link rel="icon" href="/contact.png" />
       </Head>
-      <div className={styles.introTextContainer}>
-        <div className={smallScreen ? styles.introTextSmall : styles.introTextLarge}>
+      <div className="intro-text-container">
+        <div className={smallScreen ? "intro-text-small" : "intro-text-large"}>
           <Grow in>
-            <Card className={styles.card}>
+            <Card className="card">
               <h1>Contact</h1>
               <div dangerouslySetInnerHTML={{ __html: introText }} />
             </Card>
           </Grow>
           <Grow in timeout={250}>
-            <div className={smallScreen ? styles.contentCoverImageSmall : styles.contentCoverImage}>
+            <div className={smallScreen ? "content-coverImageSmall" : "content-cover-image"}>
               <img src={coverImgUrl} alt="Geen afbeelding" height={calcHeight(400)} />
             </div>
           </Grow>
         </div>
       </div>
       <Grow in timeout={500}>
-        <div className={styles.centerDiv}>
-          <Card className={styles.contactInfoCard}>
+        <div className="center-div">
+          <Card className="contact-info-card">
             <Typography align="center" variant="h6">
               {contactInfo.contacts}
             </Typography>
             <div
               className={
-                dimensions && dimensions.width <= 800 ? styles.contactInfoSmall : styles.contactInfo
+                dimensions && dimensions.width <= 800 ? "contact-info-small" : "contact-info"
               }
             >
-              <div className={styles.contactInfoItem}>
+              <div className="contact-info-item">
                 <LocationOn />
                 <p>{contactInfo.address}</p>
                 <p>
                   {contactInfo.postalCode}, {contactInfo.city}
                 </p>
               </div>
-              <div className={styles.contactInfoItem}>
+              <div className="contact-info-item">
                 <AlternateEmail />
                 <p>{contactInfo.email}</p>
               </div>
-              <div className={styles.contactInfoItem}>
+              <div className="contact-info-item">
                 <Phone />
                 <p>{contactInfo.phoneNumber}</p>
               </div>

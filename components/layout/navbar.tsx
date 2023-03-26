@@ -15,7 +15,6 @@ import {
   Typography,
 } from "@mui/material";
 import { Menu } from "@mui/icons-material";
-import styles from "./layout.module.scss";
 
 const navItems = [
   { label: "Home", ref: "/" },
@@ -51,7 +50,7 @@ export default function Navbar() {
 
   return (
     <>
-      <AppBar className={styles.navbar} component="nav" position="sticky" variant="outlined">
+      <AppBar className="navbar" component="nav" position="sticky" variant="outlined">
         <Toolbar>
           <IconButton
             color="inherit"

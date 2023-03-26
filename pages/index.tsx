@@ -7,7 +7,6 @@ import useWindowDimensions from "@/utils/useWindowDimensions";
 import Head from "next/head";
 import { Card, Grow } from "@mui/material";
 import ImageCarousel from "@/components/imageCarousel";
-import styles from "../styles/general.module.scss";
 
 interface Props {
   introText: any;
@@ -23,20 +22,20 @@ export default function Home({ introText, coverImgUrls }: Props) {
         <title>Boerderij bloem | home</title>
         <link rel="icon" href="/flower.png" />
       </Head>
-      <div className={styles.introTextContainer}>
+      <div className="intro-text-container">
         <div
           className={
-            dimensions && dimensions.width <= 1050 ? styles.introTextSmall : styles.introTextLarge
+            dimensions && dimensions.width <= 1050 ? "intro-text-small" : "intro-text-large"
           }
         >
           <Grow in timeout={dimensions && dimensions.width <= 1050 ? 500 : 0}>
-            <Card className={styles.card}>
+            <Card className="card">
               <h1>Welkom</h1>
               <div dangerouslySetInnerHTML={{ __html: introText }} />
             </Card>
           </Grow>
           <Grow in timeout={dimensions && dimensions.width > 1050 ? 500 : 0}>
-            <div className={styles.backgroundDiv}>
+            <div className="background-div">
               <ImageCarousel
                 imgUrls={coverImgUrls}
                 height={450}

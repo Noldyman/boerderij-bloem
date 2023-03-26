@@ -1,0 +1,27 @@
+.contact-info-card {
+  margin: 50px 10px;
+  width: 100%;
+  max-width: 900px;
+  padding: 20px;
+  border: none;
+  box-shadow: none;
+  border-radius: 2px;
+  height: fit-content;
+}
+
+.contact-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.contact-info-small {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-info-item {
+  text-align: center;
+}

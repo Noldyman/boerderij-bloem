@@ -1,6 +1,5 @@
 import useWindowDimensions from "@/utils/useWindowDimensions";
 import Carousel from "react-material-ui-carousel";
-import styles from "./components.module.scss";
 
 interface Margins {
   top?: number;
@@ -56,7 +55,7 @@ export default function ImageCarousel({ imgUrls, height, width, margins }: Props
         {imgUrls.map((imgUrl) => (
           <img
             height={calcHeight(height)}
-            className={styles.image}
+            className="image"
             key={imgUrl}
             src={imgUrl}
             alt="Geen afbeelding"
