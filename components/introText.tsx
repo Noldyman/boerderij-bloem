@@ -1,5 +1,5 @@
 import useWindowDimensions from "@/utils/useWindowDimensions";
-import { Card, Grow } from "@mui/material";
+import { Card, Grow, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import ImageCarousel from "./imageCarousel";
 
@@ -26,7 +26,7 @@ export default function IntroText({ title, htmlContent, imgUrls }: Props) {
       <div className={smallScreen ? "intro-text-small" : "intro-text-large"}>
         <Grow in timeout={smallScreen ? 500 : 0}>
           <Card className="card">
-            <h1>{title}</h1>
+            <Typography variant="h3">{title}</Typography>
             <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
           </Card>
         </Grow>

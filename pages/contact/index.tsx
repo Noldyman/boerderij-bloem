@@ -9,18 +9,10 @@ import { Card, Grow, Typography } from "@mui/material";
 import { AlternateEmail, Phone, LocationOn } from "@mui/icons-material";
 import { createHtmlFromMarkdown } from "@/utils/parseMarkdown";
 import IntroText from "@/components/introText";
-
-interface ContactInfo {
-  address: string;
-  city: string;
-  contacts: string;
-  email: string;
-  phoneNumber: string;
-  postalCode: string;
-}
+import { ContactInfo } from "@/models/contactInfo";
 
 interface Props {
-  introText: any;
+  introText: string;
   coverImgUrls: string[];
   contactInfo: ContactInfo;
 }

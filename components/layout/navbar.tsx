@@ -50,7 +50,7 @@ export default function Navbar() {
 
   return (
     <>
-      <AppBar className="navbar" component="nav" position="sticky" variant="outlined">
+      <AppBar className="navbar" component="nav" position="sticky" elevation={0}>
         <Toolbar>
           <IconButton
             color="inherit"
