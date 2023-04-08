@@ -18,6 +18,7 @@ import { Menu } from "@mui/icons-material";
 
 const navItems = [
   { label: "Home", ref: "/" },
+  { label: "Ierse terriërs", ref: "/ierse-terriers" },
   { label: "Contact", ref: "/contact" },
 ];
 
