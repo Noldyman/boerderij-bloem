@@ -2,14 +2,15 @@ import Head from "next/head";
 import { GetStaticProps } from "next";
 import { createHtmlFromMarkdown } from "@/utils/parseMarkdown";
 import IntroText from "@/components/intro/introText";
-import { Typography, CircularProgress, Fade } from "@mui/material";
+import { Typography, CircularProgress, Fade, Button, Divider } from "@mui/material";
 import { useEffect, useState } from "react";
 import { NewsItem } from "@/models/news";
 import NewsitemPreview from "@/components/news/newsitemPreview";
 import NewsitemDialog from "@/components/news/newsitemDialog";
 import { getIntroText } from "@/services/textService";
 import { getCoverImageUrls } from "@/services/imageService";
-import { getNewsitems, likeNewsitem } from "@/services/newsService";
+import { getNewsItemCount, getNewsitems, likeNewsitem } from "@/services/newsService";
+import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 
 interface Props {
   introText: string;
@@ -18,15 +19,21 @@ interface Props {
 
 export default function Home({ introText, coverImgUrls }: Props) {
   const [newsitemsLoading, setNewsitemsLoading] = useState(false);
+  const [moreNewsitemsLoading, setMoreNewsitemsLoading] = useState(false);
+  const [newsitemCount, setNewsitemCount] = useState(0);
   const [newsitems, setNewsitems] = useState<NewsItem[]>([]);
+  const [lastNewsitem, setLastNewsitem] = useState<QueryDocumentSnapshot<DocumentData>>();
   const [openNewsitem, setOpenNewsitem] = useState<NewsItem | undefined>();
   const [newsitemLikes, setNewsitemLikes] = useState<string[] | undefined>();
 
   useEffect(() => {
     const fetchNewsitems = async () => {
       setNewsitemsLoading(true);
-      const newNewsItems = await getNewsitems();
-      setNewsitems(newNewsItems);
+      const count = await getNewsItemCount();
+      setNewsitemCount(count);
+      const { newsitems, lastItem } = await getNewsitems();
+      setNewsitems(newsitems);
+      setLastNewsitem(lastItem);
       setNewsitemsLoading(false);
     };
 
@@ -81,6 +88,15 @@ export default function Home({ introText, coverImgUrls }: Props) {
     setOpenNewsitem(undefined);
   };
 
+  const handleMoreNewsItems = async () => {
+    if (!lastNewsitem) return;
+    setMoreNewsitemsLoading(true);
+    const { newsitems, lastItem } = await getNewsitems(lastNewsitem);
+    setNewsitems((prevValue) => [...prevValue, ...newsitems]);
+    setLastNewsitem(lastItem);
+    setMoreNewsitemsLoading(false);
+  };
+
   return (
     <>
       <Head>
@@ -107,6 +123,22 @@ export default function Home({ introText, coverImgUrls }: Props) {
                 onOpen={handleOpenNewsitem}
               />
             ))
+          )}
+          {moreNewsitemsLoading ? (
+            <CircularProgress className="news-loader" />
+          ) : (
+            newsitemCount > newsitems.length && (
+              <>
+                <Divider />
+                <Button
+                  className="more-news-button"
+                  variant="outlined"
+                  onClick={handleMoreNewsItems}
+                >
+                  Meer nieuws
+                </Button>
+              </>
+            )
           )}
         </div>
       </Fade>
