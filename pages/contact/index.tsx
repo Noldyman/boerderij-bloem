@@ -2,14 +2,14 @@ import Head from "next/head";
 import { GetStaticProps } from "next";
 import { useEffect, useState } from "react";
 import useWindowDimensions from "@/utils/useWindowDimensions";
-import { db, storage } from "@/utils/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { Card, Grow, Typography } from "@mui/material";
 import { AlternateEmail, Phone, LocationOn } from "@mui/icons-material";
 import { createHtmlFromMarkdown } from "@/utils/parseMarkdown";
-import IntroText from "@/components/introText";
+import IntroText from "@/components/intro/introText";
 import { ContactInfo } from "@/models/contactInfo";
+import { getIntroText } from "@/services/textService";
+import { getCoverImageUrls } from "@/services/imageService";
+import { getContactInfo } from "@/services/contactService";
 
 interface Props {
   introText: string;
@@ -66,41 +66,10 @@ export default function Contact({ introText, coverImgUrls, contactInfo }: Props)
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const listRef = ref(storage, "images/coverphotos/contact");
-  const res = await listAll(listRef);
-  const coverImgUrls = await Promise.all(
-    res.items.map(async (item) => {
-      const imgRef = ref(storage, item.fullPath);
-      return await getDownloadURL(imgRef);
-    })
-  );
-
-  const introSnapshot = await getDocs(
-    query(
-      collection(db, `texts`),
-      where("page", "==", "contact"),
-      where("identifier", "==", "intro")
-    )
-  );
-  let introText = "Er ging iets mis";
-  if (!introSnapshot.empty) {
-    introText = introSnapshot.docs[0].data().text;
-  }
+  const coverImgUrls = await getCoverImageUrls("contact");
+  const introText = await getIntroText("contact");
   const htmlContnent = await createHtmlFromMarkdown(introText);
-
-  let contactInfo = {
-    address: "",
-    city: "",
-    contacts: "Er ging iets mis",
-    email: "",
-    phoneNumber: "",
-    postalCode: "",
-  };
-  const contactInfoRef = collection(db, "contactinfo");
-  const contactInfoSnap = await getDocs(query(contactInfoRef));
-  if (!contactInfoSnap.empty) {
-    contactInfo = contactInfoSnap.docs[0].data() as ContactInfo;
-  }
+  const contactInfo = await getContactInfo();
 
   return {
     props: {

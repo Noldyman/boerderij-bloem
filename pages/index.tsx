@@ -1,25 +1,15 @@
 import Head from "next/head";
 import { GetStaticProps } from "next";
-import { db, storage } from "@/utils/firebase";
-import {
-  collection,
-  doc,
-  getDocs,
-  increment,
-  limit,
-  orderBy,
-  query,
-  updateDoc,
-  where,
-} from "firebase/firestore";
-import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { createHtmlFromMarkdown } from "@/utils/parseMarkdown";
-import IntroText from "@/components/introText";
+import IntroText from "@/components/intro/introText";
 import { Typography, CircularProgress, Fade } from "@mui/material";
 import { useEffect, useState } from "react";
 import { NewsItem } from "@/models/news";
-import NewsitemPreview from "@/components/layout/news/newsitemPreview";
-import NewsitemDialog from "@/components/layout/news/newsitemDialog";
+import NewsitemPreview from "@/components/news/newsitemPreview";
+import NewsitemDialog from "@/components/news/newsitemDialog";
+import { getIntroText } from "@/services/textService";
+import { getCoverImageUrls } from "@/services/imageService";
+import { getNewsitems, likeNewsitem } from "@/services/newsService";
 
 interface Props {
   introText: string;
@@ -35,24 +25,8 @@ export default function Home({ introText, coverImgUrls }: Props) {
   useEffect(() => {
     const fetchNewsitems = async () => {
       setNewsitemsLoading(true);
-      const newitemsSnap = await getDocs(
-        query(collection(db, `newsitems`), orderBy("date", "desc"), limit(10))
-      );
-      if (!newitemsSnap.empty) {
-        const newNewsItems: any[] = await Promise.all(
-          newitemsSnap.docs.map(async (doc) => {
-            let imgUrl = undefined;
-            const imgRef = ref(storage, "images/newsitems/" + doc.id);
-            await getDownloadURL(imgRef)
-              .then((link) => {
-                imgUrl = link;
-              })
-              .catch((_) => {});
-            return { id: doc.id, ...doc.data(), imgUrl };
-          })
-        );
-        setNewsitems(newNewsItems);
-      }
+      const newNewsItems = await getNewsitems();
+      setNewsitems(newNewsItems);
       setNewsitemsLoading(false);
     };
 
@@ -74,9 +48,7 @@ export default function Home({ introText, coverImgUrls }: Props) {
     if (!newsitemLikes) return alert("Er is iets misgegaan. Probeer het later opnieuw");
     const incrementation = newsitemLikes?.includes(newsitemId) ? -1 : 1;
     try {
-      await updateDoc(doc(db, `newsitems/${newsitemId}`), {
-        likes: increment(incrementation),
-      });
+      await likeNewsitem(newsitemId, incrementation);
       let newLikes = [];
       if (incrementation > 0) {
         newLikes = [...newsitemLikes, newsitemId];
@@ -152,22 +124,8 @@ export default function Home({ introText, coverImgUrls }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const listRef = ref(storage, "images/coverphotos/home");
-  const res = await listAll(listRef);
-  const coverImgUrls = await Promise.all(
-    res.items.map(async (item) => {
-      const imgRef = ref(storage, item.fullPath);
-      return await getDownloadURL(imgRef);
-    })
-  );
-
-  const querySnapshot = await getDocs(
-    query(collection(db, `texts`), where("page", "==", "home"), where("identifier", "==", "intro"))
-  );
-  let introText = "No data";
-  if (!querySnapshot.empty) {
-    introText = querySnapshot.docs[0].data().text;
-  }
+  const coverImgUrls = await getCoverImageUrls("home");
+  const introText = await getIntroText("home");
   const htmlContnent = await createHtmlFromMarkdown(introText);
 
   return {
