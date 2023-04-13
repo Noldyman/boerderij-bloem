@@ -16,10 +16,6 @@ export const getCoverImageUrls = async (page: string) => {
 
 export const getImageUrl = async (dir: string, id: string) => {
   const imgRef = ref(storage, `images/${dir}/${id}`);
-  try {
-    const imgUrl = await getDownloadURL(imgRef);
-    return imgUrl;
-  } catch (_) {
-    return "";
-  }
+  const imgUrl = await getDownloadURL(imgRef);
+  return imgUrl;
 };

@@ -4,12 +4,17 @@ import { createHtmlFromMarkdown } from "@/utils/parseMarkdown";
 import IntroText from "@/components/intro/introText";
 import { Typography, CircularProgress, Fade, Button, Divider } from "@mui/material";
 import { useEffect, useState } from "react";
-import { NewsItem } from "@/models/news";
+import { Newsitem } from "@/models/news";
 import NewsitemPreview from "@/components/news/newsitemPreview";
 import NewsitemDialog from "@/components/news/newsitemDialog";
 import { getIntroText } from "@/services/textService";
 import { getCoverImageUrls } from "@/services/imageService";
-import { getNewsItemCount, getNewsitems, likeNewsitem } from "@/services/newsService";
+import {
+  getNewsItemCount,
+  getNewsitems,
+  getNewsitemsWithImageIds,
+  likeNewsitem,
+} from "@/services/newsService";
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 
 interface Props {
@@ -21,9 +26,10 @@ export default function Home({ introText, coverImgUrls }: Props) {
   const [newsitemsLoading, setNewsitemsLoading] = useState(false);
   const [moreNewsitemsLoading, setMoreNewsitemsLoading] = useState(false);
   const [newsitemCount, setNewsitemCount] = useState(0);
-  const [newsitems, setNewsitems] = useState<NewsItem[]>([]);
+  const [newsitemsWithImageIds, setNewsitemsWithImageIds] = useState<string[]>([]);
+  const [newsitems, setNewsitems] = useState<Newsitem[]>([]);
   const [lastNewsitem, setLastNewsitem] = useState<QueryDocumentSnapshot<DocumentData>>();
-  const [openNewsitem, setOpenNewsitem] = useState<NewsItem | undefined>();
+  const [openNewsitem, setOpenNewsitem] = useState<Newsitem | undefined>();
   const [newsitemLikes, setNewsitemLikes] = useState<string[] | undefined>();
 
   useEffect(() => {
@@ -31,7 +37,9 @@ export default function Home({ introText, coverImgUrls }: Props) {
       setNewsitemsLoading(true);
       const count = await getNewsItemCount();
       setNewsitemCount(count);
-      const { newsitems, lastItem } = await getNewsitems();
+      const newNewsitemsWithImageIds = await getNewsitemsWithImageIds();
+      setNewsitemsWithImageIds(newNewsitemsWithImageIds);
+      const { newsitems, lastItem } = await getNewsitems(newNewsitemsWithImageIds);
       setNewsitems(newsitems);
       setLastNewsitem(lastItem);
       setNewsitemsLoading(false);
@@ -80,7 +88,7 @@ export default function Home({ introText, coverImgUrls }: Props) {
     }
   };
 
-  const handleOpenNewsitem = (newsitem: NewsItem) => {
+  const handleOpenNewsitem = (newsitem: Newsitem) => {
     setOpenNewsitem(newsitem);
   };
 
@@ -91,7 +99,7 @@ export default function Home({ introText, coverImgUrls }: Props) {
   const handleMoreNewsItems = async () => {
     if (!lastNewsitem) return;
     setMoreNewsitemsLoading(true);
-    const { newsitems, lastItem } = await getNewsitems(lastNewsitem);
+    const { newsitems, lastItem } = await getNewsitems(newsitemsWithImageIds, lastNewsitem);
     setNewsitems((prevValue) => [...prevValue, ...newsitems]);
     setLastNewsitem(lastItem);
     setMoreNewsitemsLoading(false);
@@ -126,19 +134,20 @@ export default function Home({ introText, coverImgUrls }: Props) {
           )}
           {moreNewsitemsLoading ? (
             <CircularProgress className="news-loader" />
+          ) : newsitemCount > newsitems.length ? (
+            <>
+              <Divider />
+              <Button className="more-news-button" variant="outlined" onClick={handleMoreNewsItems}>
+                Meer nieuws
+              </Button>
+            </>
           ) : (
-            newsitemCount > newsitems.length && (
-              <>
-                <Divider />
-                <Button
-                  className="more-news-button"
-                  variant="outlined"
-                  onClick={handleMoreNewsItems}
-                >
-                  Meer nieuws
-                </Button>
-              </>
-            )
+            <>
+              <Divider />
+              <Typography textAlign="center" fontStyle="italic">
+                Er zijn geen berichten meer{" "}
+              </Typography>
+            </>
           )}
         </div>
       </Fade>

@@ -1,15 +1,15 @@
-import { NewsItem } from "@/models/news";
+import { Newsitem } from "@/models/news";
 import useWindowDimensions from "@/utils/useWindowDimensions";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { Button, Chip, Divider, IconButton, Typography, Fade, Card } from "@mui/material";
 import { format } from "date-fns";
 
 interface Props {
-  newsitem: NewsItem;
+  newsitem: Newsitem;
   index: number;
   isLiked: boolean;
   onLike: () => void;
-  onOpen: (newsitem: NewsItem) => void;
+  onOpen: (newsitem: Newsitem) => void;
 }
 
 export default function NewsitemPreview({ newsitem, index, isLiked, onLike, onOpen }: Props) {
@@ -22,16 +22,16 @@ export default function NewsitemPreview({ newsitem, index, isLiked, onLike, onOp
       {index > 0 && <Divider />}
       <div
         className={`
-        ${newsitem.imgUrl ? "news-item-with-img" : ""} ${
+        ${newsitem.imageUrl ? "news-item-with-img" : ""} ${
           smallScreen ? "news-item-with-img-small" : !isEven ? "news-item-with-img-reverse" : ""
         }
         `}
       >
-        {newsitem.imgUrl && (
+        {newsitem.imageUrl && (
           <Fade in>
             <div className={`news-image ${!isEven && "news-image-reverse"}`}>
               <picture>
-                <img className="image" width="100%" src={newsitem.imgUrl} alt="Geen afbeelding" />
+                <img className="image" width="100%" src={newsitem.imageUrl} alt="Geen afbeelding" />
               </picture>
             </div>
           </Fade>

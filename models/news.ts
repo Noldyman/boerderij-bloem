@@ -1,11 +1,10 @@
 import { Timestamp } from "firebase/firestore";
 
-export interface NewsItem {
+export interface Newsitem {
   id: string;
   title: string;
   date: Timestamp;
   message: string;
-  imgUrl?: string;
+  imageUrl?: string;
   likes: number;
-  hasImage: boolean;
 }
