@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { Newsitem } from "@/models/news";
 import NewsitemPreview from "@/components/news/newsitemPreview";
 import NewsitemDialog from "@/components/news/newsitemDialog";
-import { getIntroText } from "@/services/textService";
+import { getIntroText } from "@/services/introTextService";
 import { getCoverImageUrls } from "@/services/imageService";
 import {
   getNewsItemCount,

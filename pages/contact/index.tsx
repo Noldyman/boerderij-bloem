@@ -7,7 +7,7 @@ import { AlternateEmail, Phone, LocationOn } from "@mui/icons-material";
 import { createHtmlFromMarkdown } from "@/utils/parseMarkdown";
 import IntroText from "@/components/intro/introText";
 import { ContactInfo } from "@/models/contactInfo";
-import { getIntroText } from "@/services/textService";
+import { getIntroText } from "@/services/introTextService";
 import { getCoverImageUrls } from "@/services/imageService";
 import { getContactInfo } from "@/services/contactService";
 
