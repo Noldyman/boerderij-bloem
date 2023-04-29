@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { getTerriers } from "@/services/irishTerrierService";
 import { Terrier } from "@/models/terriers";
 import OurKennel from "./ourKennel";
+import InformativeTexts from "@/components/informativeTexts";
 
 interface Props {
   introText: string;
@@ -32,9 +33,8 @@ export default function Index({ introText, coverImgUrls }: Props) {
         <link rel="icon" href="/terrier.png" />
       </Head>
       <IntroText title="Ierse terriërs" htmlContent={introText} imgUrls={coverImgUrls} />
-      <div className="page-content">
-        <OurKennel terriers={terriers} />
-      </div>
+      <OurKennel terriers={terriers} />
+      <InformativeTexts page="irishTerriers" />
     </>
   );
 }

@@ -1,7 +1,7 @@
 .intro-text-container {
   width: fit-content;
   margin: auto;
-  margin-top: 75px;
+  margin-top: 50px;
   padding: 0px;
 }
 
@@ -17,4 +17,48 @@
 
 .image {
   border-radius: 2px;
+}
+
+.info-texts {
+  width: 100%;
+  max-width: 1200px;
+  // margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.info-text {
+  display: flex;
+}
+
+.info-text-reverse {
+  flex-direction: row-reverse;
+}
+
+.info-text-small {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-text-card {
+  margin-top: 30px;
+  margin-left: -50px;
+}
+
+.info-text-card-reverse {
+  margin-top: 30px;
+  margin-right: -50px;
+}
+
+.info-text-card-small {
+  margin-top: -50px;
+}
+.info-text-image {
+  max-width: 400px;
+  border-radius: 3px;
+}
+
+.info-text-image-small {
+  width: 100%;
 }
