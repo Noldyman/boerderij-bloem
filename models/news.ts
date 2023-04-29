@@ -5,6 +5,7 @@ export interface Newsitem {
   title: string;
   date: Timestamp;
   message: string;
+  htmlContent: string;
   imageUrl?: string;
   likes: number;
 }

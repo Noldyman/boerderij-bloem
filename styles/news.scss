@@ -1,7 +1,4 @@
 .news-div {
-  margin: 100px auto;
-  width: 100%;
-  max-width: 1000px;
   display: flex;
   flex-direction: column;
   gap: 25px;
@@ -14,6 +11,7 @@
 .news-item-with-img {
   display: flex;
   align-items: center;
+  gap: 20px;
 }
 
 .news-item-with-img-reverse {
@@ -28,11 +26,9 @@
 
 .news-item-text {
   width: 100%;
-  height: fit-content;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding: 0px 20px;
 }
 
 .news-item-message {
@@ -53,10 +49,9 @@
   gap: 15px;
 }
 
-.news-image {
+.news-preview-image {
   width: 100%;
   max-width: 400px;
-  z-index: -1;
 }
 
 .newsitem-dialog {
@@ -77,4 +72,17 @@
   width: 100%;
   max-width: 300px;
   margin: auto;
+}
+
+.news-item-card {
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.news-image {
+  width: 100%;
+  max-width: 600px;
 }

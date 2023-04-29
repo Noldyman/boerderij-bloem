@@ -1,7 +1,7 @@
 import "@/styles/globals.scss";
 import "@/styles/general.scss";
 import "@/styles/components.scss";
-import "@/styles/home.scss";
+import "@/styles/news.scss";
 import "@/styles/irishTerriers.scss";
 import "@/styles/contact.scss";
 import Layout from "@/components/layout/layout";
