@@ -8,6 +8,10 @@
   margin: auto;
 }
 
+.news-title {
+  margin: 0px 10px;
+}
+
 .news-item-with-img {
   display: flex;
   align-items: center;
@@ -28,7 +32,11 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
+}
+
+.news-item-text-small {
+  padding: 0px 10px;
 }
 
 .news-item-message {
@@ -74,12 +82,16 @@
   margin: auto;
 }
 
-.news-item-card {
-  max-width: 640px;
+.news-item {
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+}
+
+.news-content {
+  padding: 0px 10px;
 }
 
 .news-image {

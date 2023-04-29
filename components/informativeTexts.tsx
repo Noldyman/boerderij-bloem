@@ -1,7 +1,7 @@
 import { InformativeText } from "@/models/texts";
 import { getInformativeTexts } from "@/services/InformativeTextService";
 import useWindowDimensions from "@/utils/useWindowDimensions";
-import { Card, Fade, Typography } from "@mui/material";
+import { Card, Divider, Fade, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 interface Props {
@@ -28,33 +28,27 @@ export default function InformativeTexts({ page }: Props) {
         {textItems.map((item, i) => {
           const isReverse = Boolean(i % 2 !== 0);
           return (
-            <div
-              key={item.imageId}
-              className={
-                smallScreen ? "info-text-small" : `info-text ${isReverse && "info-text-reverse"}`
-              }
-            >
-              <picture>
-                <img
-                  className={smallScreen ? "info-text-image-small" : "info-text-image"}
-                  src={item.imageUrl}
-                  alt={item.title}
-                />
-              </picture>
-
-              <Card
-                className={`card ${
-                  smallScreen
-                    ? "info-text-card-small"
-                    : isReverse
-                    ? "info-text-card-reverse"
-                    : "info-text-card"
-                }`}
+            <>
+              {i !== 0 && <Divider />}
+              <div
+                key={item.imageId}
+                className={
+                  smallScreen ? "info-text-small" : `info-text ${isReverse && "info-text-reverse"}`
+                }
               >
-                <Typography variant="h4">{item.title}</Typography>
-                <div dangerouslySetInnerHTML={{ __html: item.htmlText }} />
-              </Card>
-            </div>
+                <picture>
+                  <img
+                    className={smallScreen ? "info-text-image-small" : "info-text-image"}
+                    src={item.imageUrl}
+                    alt={item.title}
+                  />
+                </picture>
+                <div className="info-text-content">
+                  <Typography variant="h4">{item.title}</Typography>
+                  <div dangerouslySetInnerHTML={{ __html: item.htmlText }} />
+                </div>
+              </div>
+            </>
           );
         })}
       </div>

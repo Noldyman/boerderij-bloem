@@ -4,7 +4,16 @@ import { useEffect, useState } from "react";
 import { getNewsitem, likeNewsitem } from "@/services/newsService";
 import useNewsitemLikes from "@/utils/useNewsitemLikes";
 import { Newsitem } from "@/models/news";
-import { Button, Card, Chip, CircularProgress, Fade, IconButton, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  Chip,
+  CircularProgress,
+  Divider,
+  Fade,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { format } from "date-fns";
 
@@ -60,36 +69,32 @@ export default function NewsPage() {
     );
 
   return (
-    <div className="newsitem">
-      <Fade in timeout={200}>
-        <Card className="card news-item-card">
-          {newsitem.imageUrl && (
-            <Fade in>
-              <picture>
-                <img className="news-image" src={newsitem.imageUrl} alt={newsitem.title} />
-              </picture>
-            </Fade>
-          )}
+    <Fade in timeout={200}>
+      <div className="news-item">
+        {newsitem.imageUrl && (
+          <Fade in>
+            <picture>
+              <img className="news-image" src={newsitem.imageUrl} alt={newsitem.title} />
+            </picture>
+          </Fade>
+        )}
+        <div className="news-content">
+          <Typography variant="h3">{newsitem.title}</Typography>
+          <Typography variant="subtitle1">{format(newsitem.date.toDate(), "dd-MM-yyy")}</Typography>
+          <div dangerouslySetInnerHTML={{ __html: newsitem.htmlContent }} />
           <div>
-            <Typography variant="h3">{newsitem.title}</Typography>
-            <Typography variant="subtitle1">
-              {format(newsitem.date.toDate(), "dd-MM-yyy")}
-            </Typography>
-            <div dangerouslySetInnerHTML={{ __html: newsitem.htmlContent }} />
-            <div>
-              <div className="news-item-actions-reverse">
-                <Link href="/" legacyBehavior>
-                  <Button variant="outlined">Terug</Button>
-                </Link>
-                <IconButton onClick={handleLike}>
-                  {isLiked ? <Favorite color="secondary" /> : <FavoriteBorder color="secondary" />}
-                </IconButton>
-                <Chip size="small" label={newsitem.likes || 0} />
-              </div>
+            <div className="news-item-actions-reverse">
+              <Link href="/" legacyBehavior>
+                <Button variant="outlined">Terug</Button>
+              </Link>
+              <IconButton onClick={handleLike}>
+                {isLiked ? <Favorite color="secondary" /> : <FavoriteBorder color="secondary" />}
+              </IconButton>
+              <Chip size="small" label={newsitem.likes || 0} />
             </div>
           </div>
-        </Card>
-      </Fade>
-    </div>
+        </div>
+      </div>
+    </Fade>
   );
 }

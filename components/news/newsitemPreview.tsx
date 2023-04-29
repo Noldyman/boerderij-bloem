@@ -37,7 +37,7 @@ export default function NewsitemPreview({ newsitem, index, isLiked, onLike }: Pr
           </Fade>
         )}
         <Fade in>
-          <div className={`news-item-text ${!isEven && "news-item-text-reverse"}`}>
+          <div className={`news-item-text ${smallScreen && "news-item-text-small"}`}>
             <div>
               <Typography variant="h6">{newsitem.title}</Typography>
               <Typography variant="subtitle1">

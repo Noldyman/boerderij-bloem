@@ -63,39 +63,39 @@ export default function Newsitems() {
   return (
     <>
       <Fade in timeout={1000}>
-        <Card className="card">
-          <div className="news-div">
-            <Typography variant="h4">Nieuws</Typography>
-            {newsitems.map((item, i) => (
-              <NewsitemPreview
-                key={i}
-                newsitem={item}
-                index={i}
-                isLiked={Boolean(newsitemLikes?.includes(item.id))}
-                onLike={() => handleLike(item.id)}
-              />
-            ))}
-            {moreNewsitemsLoading ? (
-              <CircularProgress className="news-loader" />
-            ) : (
-              <>
-                <Button
-                  className="more-news-button"
-                  disabled={newsitemCount <= newsitems.length}
-                  variant="outlined"
-                  onClick={handleMoreNewsItems}
-                >
-                  Meer nieuws
-                </Button>
-                {newsitemCount <= newsitems.length && (
-                  <Typography textAlign="center" marginTop="-15px" fontStyle="italic">
-                    Er zijn geen berichten meer
-                  </Typography>
-                )}
-              </>
-            )}
-          </div>
-        </Card>
+        <div className="news-div">
+          <Typography className="news-title" variant="h4">
+            Nieuws
+          </Typography>
+          {newsitems.map((item, i) => (
+            <NewsitemPreview
+              key={i}
+              newsitem={item}
+              index={i}
+              isLiked={Boolean(newsitemLikes?.includes(item.id))}
+              onLike={() => handleLike(item.id)}
+            />
+          ))}
+          {moreNewsitemsLoading ? (
+            <CircularProgress className="news-loader" />
+          ) : (
+            <>
+              <Button
+                className="more-news-button"
+                disabled={newsitemCount <= newsitems.length}
+                variant="outlined"
+                onClick={handleMoreNewsItems}
+              >
+                Meer nieuws
+              </Button>
+              {newsitemCount <= newsitems.length && (
+                <Typography textAlign="center" marginTop="-15px" fontStyle="italic">
+                  Er zijn geen berichten meer
+                </Typography>
+              )}
+            </>
+          )}
+        </div>
       </Fade>
     </>
   );

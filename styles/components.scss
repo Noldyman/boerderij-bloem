@@ -22,7 +22,6 @@
 .info-texts {
   width: 100%;
   max-width: 1200px;
-  // margin: 50px auto;
   display: flex;
   flex-direction: column;
   gap: 50px;
@@ -30,6 +29,7 @@
 
 .info-text {
   display: flex;
+  gap: 10px;
 }
 
 .info-text-reverse {
@@ -41,21 +41,12 @@
   flex-direction: column;
 }
 
-.info-text-card {
-  margin-top: 30px;
-  margin-left: -50px;
+.info-text-content {
+  padding: 0px 10px;
 }
 
-.info-text-card-reverse {
-  margin-top: 30px;
-  margin-right: -50px;
-}
-
-.info-text-card-small {
-  margin-top: -50px;
-}
 .info-text-image {
-  max-width: 400px;
+  max-width: 500px;
   border-radius: 3px;
 }
 
