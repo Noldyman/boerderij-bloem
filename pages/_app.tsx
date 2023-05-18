@@ -1,7 +1,6 @@
 import "@/styles/globals.scss";
 import "@/styles/components.scss";
 import "@/styles/news.scss";
-import "@/styles/irishTerriers.scss";
 import "@/styles/contact.scss";
 import Layout from "@/components/layout/layout";
 import type { AppProps } from "next/app";

@@ -19,6 +19,7 @@ import { Menu } from "@mui/icons-material";
 const navItems = [
   { label: "Home", ref: "/" },
   { label: "Ierse terriërs", ref: "/ierse-terriers" },
+  { label: "Solognote schapen", ref: "/solognote-schapen" },
   { label: "Contact", ref: "/contact" },
 ];
 

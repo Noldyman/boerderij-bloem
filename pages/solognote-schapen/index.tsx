@@ -5,7 +5,7 @@ import { getIntroText } from "@/services/introTextService";
 import { createHtmlFromMarkdown } from "@/utils/parseMarkdown";
 import { GetStaticProps } from "next";
 import InformativeTexts from "@/components/informativeTexts";
-import DogKennel from "../../components/dogKennel";
+import DogKennel from "@/components/dogKennel";
 
 interface Props {
   introText: string;
@@ -16,19 +16,19 @@ export default function Index({ introText, coverImgUrls }: Props) {
   return (
     <>
       <Head>
-        <title>Boerderij bloem | Ierse terriërs</title>
-        <link rel="icon" href="/terrier.png" />
+        <title>Boerderij bloem | Solognote schapen</title>
+        <link rel="icon" href="/sheep.png" />
       </Head>
-      <IntroText title="Ierse terriërs" htmlContent={introText} imgUrls={coverImgUrls} />
-      <DogKennel title="Onze kennel" directory="terriers" />
-      <InformativeTexts page="irishTerriers" />
+      <IntroText title="Solognote schapen" htmlContent={introText} imgUrls={coverImgUrls} />
+      <DogKennel title="Onze hulpjes" directory="bordercollies" />
+      <InformativeTexts page="solognoteSheep" />
     </>
   );
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const coverImgUrls = await getCoverImageUrls("irishTerriers");
-  const introText = await getIntroText("irishTerriers");
+  const coverImgUrls = await getCoverImageUrls("solognoteSheep");
+  const introText = await getIntroText("solognoteSheep");
   const htmlContnent = await createHtmlFromMarkdown(introText);
 
   return {
