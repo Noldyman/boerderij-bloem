@@ -22,8 +22,8 @@ export default function NewsitemPreview({ newsitem, index, isLiked, onLike }: Pr
       {index > 0 && <Divider />}
       <div
         className={`
-        ${newsitem.imageUrl ? "news-item-with-img" : ""} ${
-          smallScreen ? "news-item-with-img-small" : !isEven ? "news-item-with-img-reverse" : ""
+        ${newsitem.imageUrl && "news-item-with-img"} ${
+          smallScreen ? "small" : !isEven ? "reverse" : ""
         }
         `}
       >
@@ -37,7 +37,7 @@ export default function NewsitemPreview({ newsitem, index, isLiked, onLike }: Pr
           </Fade>
         )}
         <Fade in>
-          <div className={`news-item-text ${smallScreen && "news-item-text-small"}`}>
+          <div className={`news-item-text ${smallScreen && "small"}`}>
             <div>
               <Typography variant="h6">{newsitem.title}</Typography>
               <Typography variant="subtitle1">
@@ -48,7 +48,7 @@ export default function NewsitemPreview({ newsitem, index, isLiked, onLike }: Pr
               className="news-item-message"
               dangerouslySetInnerHTML={{ __html: newsitem.htmlContent }}
             />
-            <div className={`news-item-actions ${!isEven && "news-item-actions-reverse"}`}>
+            <div className={`news-item-actions ${!isEven && "reverse"}`}>
               <Link href={`nieuws/${newsitem.id}`} legacyBehavior>
                 <Button color="primary" variant="outlined">
                   Lees meer

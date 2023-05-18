@@ -1,6 +1,6 @@
 import { Newsitem } from "@/models/news";
 import { getNewsItemCount, getNewsitems, likeNewsitem } from "@/services/newsService";
-import { Button, Card, CircularProgress, Fade, Tooltip, Typography } from "@mui/material";
+import { Button, CircularProgress, Fade, Typography } from "@mui/material";
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import NewsitemPreview from "./newsitemPreview";

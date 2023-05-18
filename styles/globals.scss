@@ -1,3 +1,13 @@
+$primary-color: #3f5946;
+$secondary-color: #cc8020;
+$background-color: #fff4eb;
+$paper-color: #b7d0d2;
+$text-color: #25362a;
+$divider-color: rgba(black, 0.2);
+$info-color: #b7d0d2;
+$success-color: #4a934a;
+$error-color: #c73e1d;
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
@@ -10,4 +20,44 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+}
+
+.navbar {
+  background-color: $paper-color;
+  border-bottom: none;
+  color: $text-color;
+}
+
+.content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
+
+.not-found {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.center-div {
+  display: flex;
+  justify-content: center;
+}
+
+.background-div {
+  z-index: -1;
+}
+
+.card {
+  margin: 0px 10px;
+  max-width: 1000px;
+  padding: 20px;
+  border: none;
+  box-shadow: none;
+  border-radius: 2px;
+  height: fit-content;
 }

@@ -5,7 +5,6 @@ import { Card, Fade, Typography } from "@mui/material";
 import { AlternateEmail, Phone, LocationOn } from "@mui/icons-material";
 import { createHtmlFromMarkdown } from "@/utils/parseMarkdown";
 import IntroText from "@/components/intro/introText";
-
 import { getIntroText } from "@/services/introTextService";
 import { getCoverImageUrls } from "@/services/imageService";
 import { getContactInfo } from "@/services/contactService";
@@ -21,6 +20,12 @@ export default function Contact({ introText, coverImgUrls, contactInfo }: Props)
   const dimensions = useWindowDimensions();
   const smallScreen = Boolean(dimensions && dimensions.width <= 800);
 
+  const contactInfoItems = [
+    { label: contactInfo.address, icon: <LocationOn /> },
+    { label: contactInfo.email, icon: <AlternateEmail /> },
+    { label: contactInfo.phoneNumber, icon: <Phone /> },
+  ];
+
   return (
     <>
       <Head>
@@ -33,22 +38,13 @@ export default function Contact({ introText, coverImgUrls, contactInfo }: Props)
           <Typography align="center" variant="h6">
             {contactInfo.contacts}
           </Typography>
-          <div className={smallScreen ? "contact-info-small" : "contact-info"}>
-            <div className="contact-info-item">
-              <LocationOn />
-              <p>{contactInfo.address}</p>
-              <p>
-                {contactInfo.postalCode}, {contactInfo.city}
-              </p>
-            </div>
-            <div className="contact-info-item">
-              <AlternateEmail />
-              <p>{contactInfo.email}</p>
-            </div>
-            <div className="contact-info-item">
-              <Phone />
-              <p>{contactInfo.phoneNumber}</p>
-            </div>
+          <div className={`contact-info ${smallScreen && "small"}`}>
+            {contactInfoItems.map((item) => (
+              <div key={item.label} className="contact-info-item">
+                {item.icon}
+                <p>{item.label}</p>
+              </div>
+            ))}
           </div>
         </Card>
       </Fade>

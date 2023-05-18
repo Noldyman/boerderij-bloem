@@ -20,7 +20,7 @@ export default function OurKennel({ terriers }: Props) {
           {terriers.map((terrier, i) => (
             <>
               {smallscreen && i !== 0 && <Divider />}
-              <div key={terrier.id} className={`terrier ${smallscreen && "terrier-small-screen"}`}>
+              <div key={terrier.id} className={`terrier ${smallscreen && "small"}`}>
                 <picture>
                   <img className="terrier-profile-pic" src={terrier.imageUrl} alt={terrier.name} />
                 </picture>

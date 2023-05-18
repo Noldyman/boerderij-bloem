@@ -1,5 +1,4 @@
 import "@/styles/globals.scss";
-import "@/styles/general.scss";
 import "@/styles/components.scss";
 import "@/styles/news.scss";
 import "@/styles/irishTerriers.scss";
