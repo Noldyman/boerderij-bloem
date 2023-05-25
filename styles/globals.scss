@@ -22,6 +22,14 @@ body {
   overflow-x: hidden;
 }
 
+a {
+  color: $text-color;
+}
+
+a:hover {
+  color: $secondary-color;
+}
+
 .navbar {
   background-color: $paper-color;
   border-bottom: none;

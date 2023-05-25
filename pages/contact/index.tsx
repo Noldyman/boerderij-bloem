@@ -20,12 +20,6 @@ export default function Contact({ introText, coverImgUrls, contactInfo }: Props)
   const dimensions = useWindowDimensions();
   const smallScreen = Boolean(dimensions && dimensions.width <= 800);
 
-  const contactInfoItems = [
-    { label: contactInfo.address, icon: <LocationOn /> },
-    { label: contactInfo.email, icon: <AlternateEmail /> },
-    { label: contactInfo.phoneNumber, icon: <Phone /> },
-  ];
-
   return (
     <>
       <Head>
@@ -39,12 +33,24 @@ export default function Contact({ introText, coverImgUrls, contactInfo }: Props)
             {contactInfo.contacts}
           </Typography>
           <div className={`contact-info ${smallScreen && "small"}`}>
-            {contactInfoItems.map((item) => (
-              <div key={item.label} className="contact-info-item">
-                {item.icon}
-                <p>{item.label}</p>
-              </div>
-            ))}
+            <div className="contact-info-item">
+              <LocationOn />
+              <p>
+                {contactInfo.address}
+                <br />
+                {contactInfo.postalCode}, {contactInfo.city}
+              </p>
+            </div>
+            <div className="contact-info-item">
+              <AlternateEmail />
+              <p>
+                <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>
+              </p>
+            </div>
+            <div className="contact-info-item">
+              <Phone />
+              <p>{contactInfo.phoneNumber}</p>
+            </div>
           </div>
         </Card>
       </Fade>

@@ -1,6 +1,7 @@
 @import "./globals.scss";
 
 .news-div {
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
   gap: 25px;
@@ -37,7 +38,7 @@
   gap: 10px;
 }
 
-.news-item-text-small {
+.news-item-text.small {
   padding: 0px 10px;
 }
 
@@ -45,6 +46,7 @@
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
   overflow: hidden;
 }
 
