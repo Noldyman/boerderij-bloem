@@ -9,8 +9,9 @@ import { Alert } from "@mui/material";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <Layout>
-      <Alert severity="warning" variant="filled">
-        Deze website is onder constructie. De informatie op de website kan onjuist zijn.
+      <Alert severity="error" variant="outlined">
+        Deze website is onder constructie. De informatie op de website kan onjuist zijn en het kan
+        zijn dat er dingen niet werken.
       </Alert>
       <Component {...pageProps} />
     </Layout>
